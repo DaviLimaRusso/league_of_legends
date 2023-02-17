@@ -102,6 +102,7 @@ public class CampeaoServiceTest {
 
         // Então
         Assertions.assertEquals(380, darius.getVidaBase());
+        Assertions.assertEquals(20, garen.getAtaqueBase());
     }
 
     @Test
@@ -231,7 +232,7 @@ public class CampeaoServiceTest {
 
     @Test
     @DisplayName("Validar Campeão derrotado")
-    public void validarCampeaoDerrotado() {
+    public void validarCampeaoDerrotado() throws Exception {
         // Dado
         Campeao garen = new Campeao("Garen", 1.90f, "Solo", 5);
         Campeao darius = new Campeao("Darius", 1.90f, "Solo", 4);
@@ -239,10 +240,13 @@ public class CampeaoServiceTest {
         campeaoService.statusBase(darius);
 
         // Quando
-        campeaoService.skillDois(garen, darius, 900);
+        Assertions.assertThrows(Exception.class, () -> {
+            campeaoService.skillDois(garen, darius, 900);
+        });
 
         // Então
         Assertions.assertEquals(0, darius.getVidaBase());
+
     }
 
     @Test
@@ -259,5 +263,23 @@ public class CampeaoServiceTest {
 
         // Então
         Assertions.assertEquals(400, darius.getVidaBase());
+    }
+
+    @Test
+    @DisplayName("Validar Campeão derrotado com a skill 3")
+    public void validarCampeaoDerrotadoComSkillTres() throws Exception {
+        // Dado
+        Campeao garen = new Campeao("Garen", 1.90f, "Solo", 5);
+        Campeao darius = new Campeao("Darius", 1.90f, "Solo", 4);
+        campeaoService.statusBase(garen);
+        campeaoService.statusBase(darius);
+
+        // Quando
+        Assertions.assertThrows(Exception.class, () -> {
+            campeaoService.skillTres(garen, darius, 900);
+        });
+
+        // Então
+        Assertions.assertEquals(0, darius.getVidaBase());
     }
 }

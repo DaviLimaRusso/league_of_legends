@@ -36,17 +36,21 @@ public class CampeaoServiceImpl implements CampeaoService{
         if (danoRecebidoSkillUm.getDefesaBase() >= valorAtaqueSkillUm + danoEfetuadoSkillUm.getAtaqueBase()) {
             return;
         }
-            if (valorAtaqueSkillUm >= danoRecebidoSkillUm.getVidaBase()) {
-                danoRecebidoSkillUm.setVidaBase(0);
-                throw new Exception("Campeão derrotado");
-            }
+        if (valorAtaqueSkillUm >= danoRecebidoSkillUm.getVidaBase()) {
+            danoRecebidoSkillUm.setVidaBase(0);
+            throw new Exception("Campeão derrotado");
+        }
         danoRecebidoSkillUm.setVidaBase((danoRecebidoSkillUm.getVidaBase() + danoRecebidoSkillUm.getDefesaBase()) - valorAtaqueSkillUm - danoEfetuadoSkillUm.getAtaqueBase());
     }
 
     @Override
-    public void skillDois(Campeao danoEfetuadoSkillDois, Campeao danoRecebidoSkillDois, int valorAtaqueSkillDois) { // Método para simular ataque utilizando Skill, considerando Defesa
+    public void skillDois(Campeao danoEfetuadoSkillDois, Campeao danoRecebidoSkillDois, int valorAtaqueSkillDois) throws Exception { // Método para simular ataque utilizando Skill, considerando Defesa
         if (danoRecebidoSkillDois.getDefesaBase() >= valorAtaqueSkillDois + danoEfetuadoSkillDois.getAtaqueBase()) {
             return;
+        }
+        if (valorAtaqueSkillDois >= danoRecebidoSkillDois.getVidaBase()) {
+            danoRecebidoSkillDois.setVidaBase(0);
+            throw new Exception("Campeão derrotado");
         }
         danoRecebidoSkillDois.setVidaBase((danoRecebidoSkillDois.getVidaBase() + danoRecebidoSkillDois.getDefesaBase()) - valorAtaqueSkillDois - danoEfetuadoSkillDois.getAtaqueBase());
         if (danoRecebidoSkillDois.getVidaBase() <= 0) {
@@ -55,9 +59,13 @@ public class CampeaoServiceImpl implements CampeaoService{
     }
 
     @Override
-    public void skillTres(Campeao danoEfetuadoSkillTres, Campeao danoRecebidoSkillTres, int valorAtaqueSkillTres) { // Método para simular ataque utilizando Skill, considerando Defesa
+    public void skillTres(Campeao danoEfetuadoSkillTres, Campeao danoRecebidoSkillTres, int valorAtaqueSkillTres) throws Exception { // Método para simular ataque utilizando Skill, considerando Defesa
         if (danoRecebidoSkillTres.getDefesaBase() >= valorAtaqueSkillTres + danoEfetuadoSkillTres.getAtaqueBase()) {
             return;
+        }
+        if (valorAtaqueSkillTres >= danoRecebidoSkillTres.getVidaBase()) {
+            danoRecebidoSkillTres.setVidaBase(0);
+            throw new Exception("Campeão derrotado");
         }
         danoRecebidoSkillTres.setVidaBase((danoRecebidoSkillTres.getVidaBase() + danoRecebidoSkillTres.getDefesaBase()) - valorAtaqueSkillTres - danoEfetuadoSkillTres.getAtaqueBase());
     }
@@ -77,7 +85,7 @@ public class CampeaoServiceImpl implements CampeaoService{
 
     @Override
     public void feitico(Campeao danoEfetuadoFeitico, Campeao danoRecebidoFeitico, int valorAtaqueFeitico) { // Ignora Defesa
-        danoEfetuadoFeitico.setAtaqueBase(danoEfetuadoFeitico.getAtaqueBase());
+        danoEfetuadoFeitico.setAtaqueBase(valorAtaqueFeitico);
         danoRecebidoFeitico.setVidaBase(danoRecebidoFeitico.getVidaBase() - valorAtaqueFeitico);
     }
 }
