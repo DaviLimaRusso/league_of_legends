@@ -1,4 +1,4 @@
-# Projeto League of Legends feitos em Java
+# Projeto League of Legends feito em Java
 
 Projeto criado para estudo de conceitos POO e testes com JUnit 5
 
